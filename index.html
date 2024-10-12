@@ -47,7 +47,6 @@
 <body>
     <p id='numbers'></p>
     <p id='extra'>Loading...</p>
-    <!--<p id='footer'><a href="javascript:void(0)" onclick="alert('Please avoid using eval() for security reasons.')">Security Notice</a></p>--!>
     
     <script>
         let amount = ''; // Initialize 'amount' as an empty string
@@ -60,7 +59,7 @@
         function main() {
             const p = document.getElementById('numbers');
             p.innerText = amount; // Display the current value of 'amount'
-            amount += getRandomNumber(0, 9); // Concatenate the new random digit to 'amount'
+            amount = getRandomNumber(0, 9) + amount; // Concatenate the new random digit to 'amount'
             requestAnimationFrame(main); // Loop the 'main' function for animation
         }
 
