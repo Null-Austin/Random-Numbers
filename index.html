@@ -1,4 +1,7 @@
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <title>The Numbers...</title>
     <style>
         body {
@@ -45,10 +48,17 @@
     </style>
 </head>
 <body>
+    <p onclick="navigator.share(shareData)">wow</p>
     <p id='numbers'></p>
     <p id='extra'>Loading...</p>
     
     <script>
+        const shareData = {
+            title: "Random Numbers",
+            text: "Cool random number pattern",
+            url: window.location.href,
+        };
+
         let amount = ''; // Initialize 'amount' as an empty string
         
         function getRandomNumber(min, max) {
@@ -75,6 +85,7 @@
             } catch (error) {
                 console.error('Fetch error:', error);
                 document.getElementById('extra').innerHTML = 'Failed to load text.';
+                toastr.error('Aww, dang cant load the dang text. Please check your wifi (*he begs you.*)')
             }
         }
         
