@@ -33,7 +33,7 @@
             const text = await response.text();
             return text;
         }
-        getTextFromWebsite('/extra.txt').then(text => {
+        getTextFromWebsite('extra.txt').then(text => {
             document.getElementById('extra').innerHTML = text
         });
 
