@@ -1,91 +1,84 @@
 <head>
     <title>The Numbers...</title>
-</head>
-<body style="text-wrap: stable;text-align: right;background-color: black; /*Add some nice text*/">
     <style>
-        #numbers {
-            position: absolute;
-            width: 80%;
-            word-break: break-all; /* Break long strings anywhere */
-            white-space: normal; /* Ensure the text wraps */
+        body {
+            text-align: right;
+            background-color: black;
+            font-family: Arial, sans-serif;
             color: white;
+            margin: 0;
+            padding: 10px;
         }
-        #extra{
-            position: absolute;
-            text-wrap: balance;
-            right: 2%;
-            color:white;
-            width:15%;
+        
+        #numbers {
+            width: 80%;
+            word-break: break-all;
+            white-space: normal;
+        }
+        
+        #extra, #footer, .menu {
+            color: white;
+            width: 15%;
             text-align: center;
         }
-        #footer{
-            position:fixed;
-            text-wrap: balance;
+        
+        #extra {
+            position: absolute;
+            right: 2%;
+            top: 10%;
+        }
+        
+        #footer {
+            position: fixed;
             right: 2%;
             bottom: 3%;
-            color:white;
-            width:15%;
-            text-align: center;
         }
+        
         a {
             color: ghostwhite;
+            text-decoration: none;
         }
-        .menu{
-            position: absolute;
-            text-wrap: balance;
-            right: 2%;
-            color:white;
-            width:15%;
-            text-align: center;
+        
+        a:hover {
+            text-decoration: underline;
         }
     </style>
+</head>
+<body>
     <p id='numbers'></p>
-    <p id='extra'>This is loading, bugged or idk, bad wifi?</p>
-    <p id='footer'><a href="javascript:void(0)" onclick="eval(prompt('Only run code that you have verified yourself; dont execute code from others without checking it first!'))">eval()</a></p>
-    <!--<form><input placeholder="Min" id='lowest'><input placeholder="max" id='most'><button type="button" onclick="window.location.href=window.location.hostname + '?max=' + document.getElementById('most').value + '&' + 'min=' + document.getElementById('lowest').value">Regenerate</button></form>!-->
+    <p id='extra'>Loading...</p>
+    <!--<p id='footer'><a href="javascript:void(0)" onclick="alert('Please avoid using eval() for security reasons.')">Security Notice</a></p>--!>
+    
     <script>
-        let debug = false
-
-        let p = document.getElementById('numbers');
         let amount = ''; // Initialize 'amount' as an empty string
         
-        function readParam(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-        }
-
-
-
-        async function getTextFromWebsite(url) {
-            const response = await fetch(url);
-            const text = await response.text();
-            return text;
-        }
-        getTextFromWebsite('extra.txt').then(text => {
-            document.getElementById('extra').innerHTML = text
-        });
-
         function getRandomNumber(min, max) {
             // Ensure min and max are integers
-            min = Math.ceil(min);
-            max = Math.floor(max);
-            // Generate and return a random number within the specified range
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
+        
+        function main() {
+            const p = document.getElementById('numbers');
+            p.innerText = amount; // Display the current value of 'amount'
+            amount += getRandomNumber(0, 9); // Concatenate the new random digit to 'amount'
+            requestAnimationFrame(main); // Loop the 'main' function for animation
+        }
 
+        main(); // Start the animation
 
-        if (debug == false){//what the heck, im making a simple setting menu, and what do i see, this non-sense, why did i make this? whatever i did to make this horror, im keeping it here for the jokes.
-            function main(){
-                p.innerText = amount; // Display the current value of 'amount'
-                amount += getRandomNumber(0, 9); // Concatenate the new random digit to 'amount'
-                requestAnimationFrame(main); // Loop the 'main' function for animation
-                document.('footer').remove()
+        // Fetching external text file (make sure the URL is accessible)
+        async function getTextFromWebsite(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Network response was not ok');
+                const text = await response.text();
+                document.getElementById('extra').innerHTML = text;
+            } catch (error) {
+                console.error('Fetch error:', error);
+                document.getElementById('extra').innerHTML = 'Failed to load text.';
             }
         }
-        else{
-            p.innerText='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac metus laoreet, tincidunt ligula imperdiet, tempus enim. Curabitur egestas accumsan ex, a sollicitudin est porttitor eget. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec a est fringilla, imperdiet turpis in, sagittis sem. Curabitur libero lorem, tempus vel sem ac, hendrerit consequat est. Pellentesque ultrices turpis vel tellus interdum vulputate. Morbi sit amet augue cursus, pretium purus id, fermentum nisi. Vivamus in tellus metus. Vivamus suscipit tincidunt bibendum. Duis sollicitudin mauris pretium tincidunt sodales. Maecenas rutrum, tortor in scelerisque condimentum, mi sapien euismod justo, in molestie mauris magna id turpis. Mauris ultrices elementum libero vel vehicula. Vestibulum rhoncus dui dui, sit amet ullamcorper dui varius luctus. Pellentesque blandit turpis velit, a congue dolor interdum in. Fusce euismod, lorem rhoncus sagittis congue, purus sem venenatis quam, a laoreet risus nibh id sem. Proin urna diam, imperdiet in augue sed, faucibus maximus nisl. Integer eget mauris nulla. Curabitur interdum non libero eu pulvinar. Curabitur eget feugiat erat. Nam sit amet mattis diam, sed pulvinar nulla. Vestibulum vel nisi egestas, cursus libero vel, ultrices erat. Duis eu purus leo. Donec sed est tincidunt, pulvinar lorem in, aliquet nunc. Proin a purus ut lorem auctor ultricies eu vel libero. Integer semper metus metus, ac rhoncus tellus dapibus sit amet. Morbi orci massa, gravida eu ante nec, sodales ullamcorper ligula. Morbi vehicula velit eu lacus efficitur malesuada nec et tortor. Etiam quis pulvinar ex. Aenean vel nunc enim. Nullam accumsan erat vitae pulvinar gravida. Suspendisse dignissim placerat enim, quis aliquet dolor mattis eget. Integer vel est sed magna lobortis tristique. Praesent facilisis lacus nisl, laoreet rutrum ex posuere sed. Nunc placerat blandit porta. Maecenas tempus viverra justo. Mauris et gravida est. In ac lobortis ipsum. Vivamus facilisis viverra quam, ac tempor tellus ultricies hendrerit. Vestibulum nunc dui, laoreet vitae arcu et, eleifend placerat ex. Morbi aliquet mattis est, in rhoncus felis tristique sit amet. Etiam lacinia et sapien ut egestas. Sed aliquam quam dui, eu egestas ex placerat ac. Nulla id velit sagittis, sollicitudin libero nec, pretium turpis. Nunc in porta neque, at luctus dui. In vel est vel neque ornare suscipit vel ut lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris suscipit magna mattis accumsan efficitur. Integer feugiat, velit vitae molestie luctus, sapien enim tempor quam, eu malesuada sem ante sed lorem. Mauris vehicula porta luctus. Ut ut semper libero. Mauris elementum ultricies risus, at feugiat lectus. Nunc posuere ipsum non orci accumsan elementum. Proin efficitur enim sed neque vulputate, eu porttitor quam interdum. Nam euismod enim vel ipsum blandit cursus. Pellentesque mauris erat, fermentum ut fringilla eu, condimentum et nulla. Maecenas metus sem, ornare at bibendum id, iaculis et sem. Mauris placerat dui vitae sem lobortis, eu fringilla nulla hendrerit. Sed congue tortor ornare elit tristique, nec tincidunt ante fringilla. Proin mattis tincidunt ipsum eu viverra. Ut tempor aliquet tortor eu volutpat. Quisque ultrices tristique cursus. Proin nec orci ultricies eros accumsan faucibus id id diam. In eleifend, quam at tincidunt faucibus, purus nunc malesuada velit, quis euismod erat diam ut dui. Vestibulum scelerisque mauris nec turpis tristique, ut hendrerit tortor pellentesque. Nullam consectetur felis justo, vestibulum semper quam blandit nec. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu faucibus massa, sed aliquam diam. Praesent ut efficitur sapien, sed rhoncus massa. Vestibulum vitae imperdiet lectus. Cras eget condimentum magna. Suspendisse non lorem dui. In nec eros venenatis, faucibus sem id, tempor augue. Etiam maximus rutrum blandit. Aenean odio massa, porttitor non volutpat iaculis, porttitor id eros. Duis aliquet sit amet massa vel interdum. Fusce a risus a turpis commodo dignissim a sit amet magna. Morbi urna velit, scelerisque at laoreet non, mollis tincidunt dolor. Phasellus tempor felis eget arcu pellentesque, sit amet molestie nibh laoreet. Quisque non sapien ultricies, ullamcorper eros ac, efficitur dolor. Vivamus vitae eros sit amet velit viverra sodales sit amet id est. Ut at mattis ante. Cras facilisis ullamcorper sem, gravida imperdiet lorem cursus at. Suspendisse potenti. Curabitur rutrum elementum malesuada. Suspendisse potenti. Praesent velit arcu, tristique sit amet porttitor eu, molestie ut enim. Nulla vel sodales velit. Duis ultrices quis enim vitae imperdiet. Maecenas pulvinar consectetur leo elementum volutpat. Vestibulum venenatis tincidunt sodales. Nam eleifend varius dui, suscipit iaculis metus dapibus et. Ut dignissim tincidunt tortor in egestas. Morbi ut tortor pharetra, venenatis felis at, sodales lorem. Nullam ullamcorper libero eget arcu bibendum, ut elementum ligula consequat. Cras ullamcorper lorem leo, vitae consectetur justo iaculis dapibus. Quisque accumsan lobortis viverra. Suspendisse mauris enim, finibus sed mauris eu, auctor viverra risus. Integer in ullamcorper enim, interdum dapibus lectus. In hac habitasse platea dictumst. Nullam facilisis gravida lorem, vitae tempor mauris suscipit sit amet. Phasellus rutrum mauris vel sapien cursus, id malesuada neque imperdiet. Pellentesque a laoreet lacus. Curabitur lobortis rutrum ipsum, eget posuere enim commodo non. Sed sagittis, risus id porttitor placerat, nisl elit faucibus turpis, quis congue ipsum sem ac metus. Donec pretium nisl consequat lorem vulputate fermentum quis et felis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed luctus eget orci eget posuere. Curabitur in porttitor urna. Maecenas ac magna luctus lacus fermentum sodales. Maecenas non sodales lorem. Donec vel interdum arcu. Proin est ipsum, pharetra in cursus in, dapibus nec augue. Ut iaculis suscipit nunc, placerat pretium lacus. Proin nec orci sed turpis eleifend egestas ut id lorem. Nam facilisis tempus turpis, vel pretium sapien vehicula vitae. Cras vel suscipit odio. Morbi lobortis tortor id fringilla volutpat. Nullam ullamcorper finibus purus. Quisque a luctus lectus. Nunc eget nunc sapien. In iaculis lobortis sem non scelerisque. Duis justo tellus, eleifend non nulla id, bibendum rhoncus magna. Aliquam lobortis lorem ut risus sodales, sed eleifend mauris maximus. Phasellus posuere ornare volutpat. Donec eu aliquam leo. Aliquam ut dolor quis metus hendrerit dapibus. Phasellus fermentum mi tincidunt urna ullamcorper, eu dignissim neque efficitur. Cras vel est elit. Quisque tempus lectus id tortor finibus, nec.'
-        }
         
-        main(); // Start the animation
+        getTextFromWebsite('extra.txt'); // Ensure this URL is valid
     </script>
 </body>
