@@ -1,0 +1,56 @@
+<head>
+    <title>The Numbers...</title>
+</head>
+<body style="text-wrap: stable;text-align: right;background-color: black; /*Add some nice text*/">
+    <style>
+        #numbers {
+            position: absolute;
+            width: 80%;
+            word-break: break-all; /* Break long strings anywhere */
+            white-space: normal; /* Ensure the text wraps */
+            color: white;
+        }
+        #extra{
+            position: absolute;
+            text-wrap: balance;
+            right: 2%;
+            color:white;
+            width:15%;
+            text-align: center;
+        }
+        a {
+            color: ghostwhite;
+        }
+    </style>
+    <p id='numbers'></p>
+    <p id='extra'>This is loading, bugged or idk, bad wifi?</p>
+    <script>
+        let p = document.getElementById('numbers');
+        let amount = ''; // Initialize 'amount' as an empty string
+    
+        async function getTextFromWebsite(url) {
+            const response = await fetch(url);
+            const text = await response.text();
+            return text;
+        }
+        getTextFromWebsite('/extra.txt').then(text => {
+            document.getElementById('extra').innerHTML = text
+        });
+
+        function getRandomNumber(min, max) {
+            // Ensure min and max are integers
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            // Generate and return a random number within the specified range
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+    
+        function main(){
+            p.innerText = amount; // Display the current value of 'amount'
+            amount += getRandomNumber(0, 9); // Concatenate the new random digit to 'amount'
+            requestAnimationFrame(main); // Loop the 'main' function for animation
+        }
+    
+        main(); // Start the animation
+    </script>
+</body>
