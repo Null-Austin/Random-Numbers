@@ -51,8 +51,17 @@
     <p onclick="navigator.share(shareData)">wow</p>
     <p id='numbers'></p>
     <p id='extra'>Loading...</p>
+    <p id="footer"><a src="javascript:void(0)" onclick="copyToClip(document.getElementById('numbers').innerText)">Copy numbers</a></p>
     
     <script>
+        function copyToClip(textToCopy) {
+            const textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+        }
         const shareData = {
             title: "Random Numbers",
             text: "Cool random number pattern",
