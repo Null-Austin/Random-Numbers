@@ -1,0 +1,1 @@
+Hello, This is a number generator that i wanted to look cool, so this is a inefficient way of making this, most likely lags on a lot of devices, and it does look pretty sweet though. Come visit my <a href="https://github.com/Null-Austin">Gitub page</a> or come take a look at the project, this took about a hour to create, and yeah, enjoy, -Austin
